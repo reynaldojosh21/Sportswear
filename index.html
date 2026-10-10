@@ -1,0 +1,86 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Football Boot Recommender</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 0 20px; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    select, button { width: 100%; padding: 8px; margin-top: 5px; font-size: 16px; }
+    button { margin-top: 20px; background: #2e7d32; color: white; border: none; cursor: pointer; }
+    #result { margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 6px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>⚽ Boot Recommender</h1>
+
+  <label for="surface">Playing Surface</label>
+  <select id="surface">
+    <option value="firm">Firm Ground (natural grass)</option>
+    <option value="artificial">Artificial Turf</option>
+    <option value="soft">Soft Ground (wet/muddy)</option>
+    <option value="indoor">Indoor Court</option>
+  </select>
+
+  <label for="position">Position</label>
+  <select id="position">
+    <option value="striker">Striker</option>
+    <option value="midfielder">Midfielder</option>
+    <option value="defender">Defender</option>
+    <option value="goalkeeper">Goalkeeper</option>
+  </select>
+
+  <label for="footWidth">Foot Width</label>
+  <select id="footWidth">
+    <option value="narrow">Narrow</option>
+    <option value="medium">Medium</option>
+    <option value="wide">Wide</option>
+  </select>
+
+  <button onclick="recommendBoot()">Get My Recommendation</button>
+
+  <div id="result"></div>
+
+  <script>
+    function recommendBoot() {
+      // Step 1: grab the values from each dropdown
+      const surface = document.getElementById("surface").value;
+      const position = document.getElementById("position").value;
+      const footWidth = document.getElementById("footWidth").value;
+
+      let bootType = "";
+      let note = "";
+
+      // Step 2: decide the boot type based on surface
+      if (surface === "firm") {
+        bootType = "FG (Firm Ground)";
+      } else if (surface === "artificial") {
+        bootType = "AG (Artificial Ground)";
+      } else if (surface === "soft") {
+        bootType = "SG (Soft Ground)";
+      } else if (surface === "indoor") {
+        bootType = "IC (Indoor Court)";
+      }
+
+      // Step 3: add a note based on foot width
+      if (footWidth === "wide") {
+        note = "Look for wide-fit models (e.g. certain Puma or New Balance boots).";
+      } else if (footWidth === "narrow") {
+        note = "A snug-fit boot like Nike Mercurial or adidas X should suit you.";
+      } else {
+        note = "Most standard-fit boots will work well for you.";
+      }
+
+      // Step 4: add a position-based tip
+      if (position === "goalkeeper") {
+        note += " Goalkeepers often prefer extra grip and ankle support.";
+      }
+
+      // Step 5: show the result on the page
+      document.getElementById("result").innerHTML =
+        `<strong>Recommended: ${bootType}</strong><br>${note}`;
+    }
+  </script>
+</body>
+</html>
